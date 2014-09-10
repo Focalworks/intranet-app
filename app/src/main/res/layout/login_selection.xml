@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+	
+    <Button 
+        android:id="@+id/btnAlreadyConf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="17sp"
+        android:text="@string/btn_already_conf"/>
+    
+    <Button 
+        android:id="@+id/btnNotConf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnAlreadyConf"
+        android:padding="10dp"
+        android:textSize="17sp"
+        android:text="@string/btn_not_conf"/>
+</RelativeLayout>

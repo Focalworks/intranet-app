@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Intranet</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_already_conf">Already Configured</string>
+    <string name="btn_not_conf">Not Configured</string>
+    <string name="btn_login">Login with Focalworks ID</string>
+</resources>
