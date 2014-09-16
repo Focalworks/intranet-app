@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import java.util.List;
+
+import intranet.fw.com.Database.DatabaseHelper;
+import intranet.fw.com.Database.User;
 import intranet.fw.com.Oauth2.OAuthAccessTokenActivity;
 import intranet.fw.com.Oauth2.Oauth2Params;
 import intranet.fw.com.R;
@@ -20,11 +24,20 @@ import intranet.fw.com.utils.Constants;
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener{
   Button btnLogin;
   OAuth auth;
+  DatabaseHelper db;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.login);
+    db= new DatabaseHelper(getApplicationContext());
+    final List<User> userDetail= db.getUserDetail();
+
+    if(userDetail.size() != 0){
+      Intent intent = new Intent(getApplicationContext(),Dashboard.class);
+      startActivity(intent);
+      finish();
+    }
 
     auth = new OAuth(this);
 

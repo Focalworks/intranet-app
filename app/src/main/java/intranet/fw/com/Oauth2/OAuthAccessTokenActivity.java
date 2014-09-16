@@ -14,7 +14,10 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+import org.json.JSONObject;
 
+import intranet.fw.com.Database.DatabaseHelper;
+import intranet.fw.com.Database.User;
 import intranet.fw.com.utils.Constants;
 
 /**
@@ -27,10 +30,12 @@ public class OAuthAccessTokenActivity extends Activity {
 
 	private SharedPreferences prefs;
 	private OAuth2Helper oAuth2Helper;
+  DatabaseHelper db;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        db =new DatabaseHelper(getApplicationContext());
         Log.i(Constants.TAG, "Starting task to retrieve request token.");
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
         oAuth2Helper = new OAuth2Helper(this.prefs);
@@ -48,25 +53,22 @@ public class OAuthAccessTokenActivity extends Activity {
 
         	@Override  
             public void onPageStarted(WebView view, String url,Bitmap bitmap)  {  
-        		Log.d(Constants.TAG, "onPageStarted : " + url + " handled = " + handled);
+        		  Log.d(Constants.TAG, "onPageStarted : " + url + " handled = " + handled);
             }
         	@Override  
             public void onPageFinished(final WebView view, final String url)  {
-        		Log.d(Constants.TAG, "onPageFinished : " + url + " handled = " + handled);
-        		
-        		if (url.startsWith(Constants.OAUTH2PARAMS.getRederictUri())) {
-	        		webview.setVisibility(View.INVISIBLE);
-	        		
-	        		if (!handled) {
-	        			new ProcessToken(url,oAuth2Helper).execute();
-	        		}
-        		} else {
-        			webview.setVisibility(View.VISIBLE);
-        		}
-            }
+        		  Log.d(Constants.TAG, "onPageFinished : " + url + " handled = " + handled);
+        		  if (url.startsWith(Constants.OAUTH2PARAMS.getRederictUri())) {
+                webview.setVisibility(View.INVISIBLE);
 
-        });  
-        
+                if (!handled) {
+                  new ProcessToken(url,oAuth2Helper).execute();
+                }
+              } else {
+                webview.setVisibility(View.VISIBLE);
+              }
+            }
+        });
         webview.loadUrl(authorizationUrl);		
 	}
 	
@@ -167,6 +169,15 @@ public class OAuthAccessTokenActivity extends Activity {
 
       @Override
       protected void onPostExecute(Void result) {
+
+        try {
+
+          JSONObject obj = new JSONObject(apiResponse);
+          db.addUserDetail(new User(obj.getString("id"),obj.getString("name"),obj.getString("gender"),obj.getString("email"),obj.getString("picture")));
+
+        } catch (Throwable t) {
+          Log.e("Intranet", "Could not parse malformed JSON: \"" + result + "\"");
+        }
         Toast.makeText(getApplicationContext(),""+apiResponse,Toast.LENGTH_LONG).show();
       }
     }

@@ -12,9 +12,10 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Userinfoplus;
+import org.json.JSONObject;
 import java.io.IOException;
-
-import intranet.fw.com.utils.Constants;
+import intranet.fw.com.Database.DatabaseHelper;
+import intranet.fw.com.Database.User;
 
 /**
  * Created by kaustubh on 10/9/14.
@@ -23,11 +24,13 @@ public class GetUserDetails extends AsyncTask<String,String,String>{
   Activity mActivity;
   String mScope;
   String mEmail;
+  DatabaseHelper db;
 
   GetUserDetails(Activity activity, String name, String scope) {
     this.mActivity = activity;
     this.mScope = scope;
     this.mEmail = name;
+    db = new DatabaseHelper(activity);
   }
 
   @Override
@@ -61,7 +64,14 @@ public class GetUserDetails extends AsyncTask<String,String,String>{
   @Override
   protected void onPostExecute(String result) {
     super.onPostExecute(result);
-    Log.i(Constants.TAG, "Received response from API : " + result);
+    try {
+
+      JSONObject obj = new JSONObject(result);
+      db.addUserDetail(new User(obj.getString("id"),obj.getString("name"),obj.getString("gender"),obj.getString("email"),obj.getString("picture")));
+
+    } catch (Throwable t) {
+      Log.e("Intranet", "Could not parse malformed JSON: \"" + result + "\"");
+    }
     Toast.makeText(mActivity,result,Toast.LENGTH_LONG).show();
   }
 

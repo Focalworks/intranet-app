@@ -3,18 +3,16 @@ package intranet.fw.com.authentication;
 import android.accounts.Account;
 import android.app.Activity;
 import android.widget.Toast;
-
 import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import intranet.fw.com.utils.CommonFunctions;
 
 /**
  * Created by kaustubh on 10/9/14.
  */
 public class OAuth {
+
   protected Activity activity;
   List<String> names;
   GoogleAccountManager googleAccountManager;
