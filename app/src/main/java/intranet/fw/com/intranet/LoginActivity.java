@@ -1,6 +1,7 @@
 package intranet.fw.com.intranet;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +10,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-import intranet.fw.com.inranet.authentication.OAuth;
+import intranet.fw.com.Oauth2.OAuthAccessTokenActivity;
+import intranet.fw.com.Oauth2.Oauth2Params;
+import intranet.fw.com.R;
+import intranet.fw.com.authentication.OAuth;
+import intranet.fw.com.utils.Constants;
 
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener{
@@ -53,8 +58,8 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     btnAlreadyConf.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        // Close dialog
         auth.authenticateUser();
+        // Close dialog
         dialog.dismiss();
       }
     });
@@ -63,10 +68,21 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     btnNotConf.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
+        startOauthFlow(Oauth2Params.GOOGLE_PLUS);
         // Close dialog
         dialog.dismiss();
       }
     });
+  }
+
+  /**
+   * Starts the activity that takes care of the OAuth2 flow
+   *
+   * @param oauth2Params
+   */
+  private void startOauthFlow(Oauth2Params oauth2Params) {
+    Constants.OAUTH2PARAMS = oauth2Params;
+    startActivity(new Intent().setClass(this,OAuthAccessTokenActivity.class));
   }
 
   @Override
@@ -87,4 +103,5 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     }
     return super.onOptionsItemSelected(item);
   }
+
 }

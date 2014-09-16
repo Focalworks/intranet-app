@@ -1,4 +1,4 @@
-package intranet.fw.com.inranet.authentication;
+package intranet.fw.com.authentication;
 
 import android.accounts.Account;
 import android.app.Activity;

@@ -1,20 +1,20 @@
-package intranet.fw.com.inranet.authentication;
+package intranet.fw.com.authentication;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Userinfoplus;
 import java.io.IOException;
-import java.net.HttpURLConnection;
+
+import intranet.fw.com.utils.Constants;
 
 /**
  * Created by kaustubh on 10/9/14.
@@ -32,7 +32,7 @@ public class GetUserDetails extends AsyncTask<String,String,String>{
 
   @Override
   protected String doInBackground(String... strings) {
-    String token="";
+    String token;
     try {
       token = fetchToken();
       if (token != null) {
@@ -61,6 +61,7 @@ public class GetUserDetails extends AsyncTask<String,String,String>{
   @Override
   protected void onPostExecute(String result) {
     super.onPostExecute(result);
+    Log.i(Constants.TAG, "Received response from API : " + result);
     Toast.makeText(mActivity,result,Toast.LENGTH_LONG).show();
   }
 
