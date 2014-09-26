@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
+
+  <TextView
+      android:id="@+id/txtCategory"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:layout_marginBottom="5dp"
+      android:layout_marginLeft="15dp"
+      android:text="@string/listview_category"
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+
+  <TextView
+      android:id="@+id/txtStatus"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/txtCategory"
+      android:layout_alignBottom="@+id/txtCategory"
+      android:paddingLeft="20dp"
+      android:text="@string/listview_status"
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+
+  <TextView
+      android:id="@+id/txtUrgency"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_alignTop="@+id/txtCategory"
+      android:layout_marginRight="20dp"
+      android:text="Urgent"
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+
+  <View
+      android:layout_below="@+id/txtCategory"
+      android:layout_width="fill_parent"
+      android:layout_height="5dip"
+      android:background="@drawable/fragment_shadow" />
+
+  <TextView
+      android:id="@+id/txtTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@+id/txtCategory"
+      android:layout_below="@+id/txtCategory"
+      android:paddingTop="15dp"
+      android:text="Title"
+      android:textSize="17sp"/>
+
+  <TextView
+      android:id="@+id/txtBody"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingTop="5dp"
+      android:layout_alignLeft="@+id/txtCategory"
+      android:layout_below="@+id/txtTitle"
+      android:text="Body"
+      android:textSize="17sp"/>
+
+  <TextView
+      android:id="@+id/txtTime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@+id/txtCategory"
+      android:layout_below="@+id/txtBody"
+      android:paddingTop="5dp"
+      android:text="time"
+      android:textSize="17sp"/>
+
+  <Button
+      android:id="@+id/btnComment"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/txtBody"
+      android:layout_alignParentRight="true"
+      android:layout_marginRight="10dp"
+      android:text=""/>
+
+</RelativeLayout>
+
+

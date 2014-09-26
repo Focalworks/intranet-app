@@ -3,6 +3,8 @@ package intranet.fw.com.authentication;
 import android.accounts.Account;
 import android.app.Activity;
 import android.widget.Toast;
+
+import com.google.android.gms.drive.internal.ac;
 import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public class OAuth {
     for (int i=0 ; i < accounts.length ; i++){
       names.add(accounts[i].name);
       if(accounts[i].name.contains("focalworks")) {
-        if (commonFunc.isConnected()) {
+        if (commonFunc.checkNetworkConnection(activity)) {
           new GetUserDetails(activity, accounts[i].name, SCOPES).execute();
         } else {
           Toast.makeText(activity, "No network connection available.", Toast.LENGTH_LONG).show();

@@ -4,23 +4,18 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.ByteArrayBuffer;
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import intranet.fw.com.CustomListAdapter.GrievanceListAdapter;
 import intranet.fw.com.R;
+import intranet.fw.com.utils.CommonFunctions;
+import intranet.fw.com.utils.Constants;
 
 /**
  * Created by kaustubh on 19/9/14.
@@ -28,60 +23,66 @@ import intranet.fw.com.R;
 public class ListGrievanceActivity extends Activity {
 
   TextView txtGrievance;
+  ListView list;
+  String [] category,status,title,body,urgency,time,comment_count;
+  String [] urls = { "www.google.com", "www.twitter.com", "www.facebook.com" };
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.list_grievance);
 
     txtGrievance =(TextView)findViewById(R.id.txt_grievance);
+    list =(ListView)findViewById(R.id.grievanceList);
+
     new GrievanceDataPostCall().execute();
+
+    list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Log.i("Click",""+i);
+      }
+    });
   }
 
   private class GrievanceDataPostCall extends AsyncTask<Uri, Void, Void> {
 
     String apiResponse = null;
-    HttpResponse response;
 
     @Override
     protected Void doInBackground(Uri...params) {
 
-      // Create a new HttpClient and Post Header
-      HttpClient httpclient = new DefaultHttpClient();
-      HttpPost httppost = new HttpPost("http://192.168.3.115/focalworks-intranet/public/api/grievance-list");
-//      HttpPost httppost = new HttpPost("http://staging.focalworks.in/intranet/public/api/grievance-list");
-
-      try {
-        // Add header
-        httppost.setHeader("EMAIL","amitav.roy@focalworks.in");
-
-        // Execute HTTP Post Request
-        response = httpclient.execute(httppost);
-
-        InputStream is = response.getEntity().getContent();
-        BufferedInputStream bis = new BufferedInputStream(is);
-        ByteArrayBuffer baf = new ByteArrayBuffer(20);
-
-        int current = 0;
-
-        while((current = bis.read()) != -1){
-          baf.append((byte)current);
-        }
-
-      /* Convert the Bytes read to a String. */
-        apiResponse = new String(baf.toByteArray());
-
-      } catch (ClientProtocolException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      apiResponse = CommonFunctions.httpGet(Constants.urlListGrievance);
       return null;
     }
 
     @Override
     protected void onPostExecute(Void result) {
-      Toast.makeText(getApplicationContext(),""+response.getStatusLine().getStatusCode(),Toast.LENGTH_LONG).show();
-      txtGrievance.setText(apiResponse);
+      try {
+        Log.i("api response",""+apiResponse);
+        JSONArray jsonArray = new JSONArray(apiResponse);
+        category = new String[jsonArray.length()];
+        status = new String[jsonArray.length()];
+        title = new String[jsonArray.length()];
+        urgency = new String[jsonArray.length()];
+        body = new String[jsonArray.length()];
+        time = new String[jsonArray.length()];
+        comment_count = new String[jsonArray.length()];
+        for(int i=0;i<jsonArray.length();i++){
+          JSONObject objResponse = jsonArray.getJSONObject(i);
+          category[i]= objResponse.get("category").toString();
+          status[i]= objResponse.get("status").toString();
+          title[i]= objResponse.get("title").toString();
+          urgency[i]= objResponse.get("urgency").toString();
+          body[i]= objResponse.get("description").toString();
+          time[i]= objResponse.get("time_ago").toString();
+          comment_count[i] = objResponse.get("comment_count").toString();
+        }
+        GrievanceListAdapter grievanceAdapter = new GrievanceListAdapter(ListGrievanceActivity.this,category,status,title,body,urgency,time,comment_count);
+        list.setAdapter(grievanceAdapter);
+      }catch (JSONException e){
+        Log.e("JSON exception",""+e);
+      }
     }
   }
 }

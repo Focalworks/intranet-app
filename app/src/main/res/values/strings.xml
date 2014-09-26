@@ -4,9 +4,12 @@
   <string name="app_name">Intranet</string>
   <string name="hello_world">Hello world!</string>
   <string name="action_settings">Settings</string>
+  <string name="service_name">Grievance</string>
 
   <!--TextView/Label Text-->
   <string name="add_grievance">Add Grievance</string>
+  <string name="listview_category">Category:</string>
+  <string name="listview_status">Status:</string>
 
   <!--Button Text-->
   <string name="btn_already_conf">Already Configured</string>
