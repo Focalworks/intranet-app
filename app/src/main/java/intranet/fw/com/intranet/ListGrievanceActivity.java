@@ -20,29 +20,20 @@ import intranet.fw.com.utils.Constants;
 /**
  * Created by kaustubh on 19/9/14.
  */
-public class ListGrievanceActivity extends Activity {
+public class ListGrievanceActivity extends Activity{
 
-  TextView txtGrievance;
   ListView list;
   String [] category,status,title,body,urgency,time,comment_count;
-  String [] urls = { "www.google.com", "www.twitter.com", "www.facebook.com" };
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.list_grievance);
 
-    txtGrievance =(TextView)findViewById(R.id.txt_grievance);
     list =(ListView)findViewById(R.id.grievanceList);
 
     new GrievanceDataPostCall().execute();
 
-    list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.i("Click",""+i);
-      }
-    });
   }
 
   private class GrievanceDataPostCall extends AsyncTask<Uri, Void, Void> {
@@ -80,6 +71,7 @@ public class ListGrievanceActivity extends Activity {
         }
         GrievanceListAdapter grievanceAdapter = new GrievanceListAdapter(ListGrievanceActivity.this,category,status,title,body,urgency,time,comment_count);
         list.setAdapter(grievanceAdapter);
+
       }catch (JSONException e){
         Log.e("JSON exception",""+e);
       }

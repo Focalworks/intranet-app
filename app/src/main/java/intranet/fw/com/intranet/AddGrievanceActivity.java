@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -35,7 +36,8 @@ import intranet.fw.com.utils.Constants;
  */
 public class AddGrievanceActivity extends Activity implements View.OnClickListener{
 
-  Button btnSave,btnBack,btnUploadImage;
+  Button btnSave,btnUploadImage;
+  ImageButton btnImgReload;
   Spinner spCategory,spUrgency;
   EditText etTitle,etBody;
   private ImageView mImageView;
@@ -56,18 +58,19 @@ public class AddGrievanceActivity extends Activity implements View.OnClickListen
 
     db = new DatabaseHelper(this);
 
-    etTitle = (EditText)findViewById(R.id.et_title);
-    etBody = (EditText)findViewById(R.id.et_body);
+    etTitle = (EditText)findViewById(R.id.enterGrievanceTitle);
+    etBody = (EditText)findViewById(R.id.etGrievanceBody);
 
-    mImageView		= (ImageView) findViewById(R.id.uploaded_photo);
+    mImageView		= (ImageView) findViewById(R.id.imgUploaded_photo);
 
     btnSave = (Button) findViewById(R.id.btn_save);
-    btnBack = (Button) findViewById(R.id.btn_back);
     btnUploadImage = (Button) findViewById(R.id.btn_upload_img);
 
     btnSave.setOnClickListener(this);
-    btnBack.setOnClickListener(this);
     btnUploadImage.setOnClickListener(this);
+
+    btnImgReload = (ImageButton) findViewById(R.id.imgReload);
+    btnImgReload.setOnClickListener(this);
 
     spCategory = (Spinner)findViewById(R.id.sp_category);
     spUrgency = (Spinner)findViewById(R.id.sp_urgency);
@@ -139,11 +142,11 @@ public class AddGrievanceActivity extends Activity implements View.OnClickListen
         post.execute(Constants.urlSaveGrievance);
         break;
 
-      case R.id.btn_back:
-        Toast.makeText(getApplicationContext(),"Back",Toast.LENGTH_LONG).show();
+      case R.id.btn_upload_img:
+        dialog.show();
         break;
 
-      case R.id.btn_upload_img:
+      case R.id.imgReload:
         dialog.show();
         break;
 
@@ -182,6 +185,7 @@ public class AddGrievanceActivity extends Activity implements View.OnClickListen
 
             mImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
             mImageView.setVisibility(View.VISIBLE);
+            btnImgReload.setVisibility(View.VISIBLE);
             btnUploadImage.setVisibility(View.GONE);
           }
         }
@@ -202,6 +206,7 @@ public class AddGrievanceActivity extends Activity implements View.OnClickListen
 
         mImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         mImageView.setVisibility(View.VISIBLE);
+        btnImgReload.setVisibility(View.VISIBLE);
         btnUploadImage.setVisibility(View.GONE);
         break;
     }

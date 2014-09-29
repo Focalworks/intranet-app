@@ -21,14 +21,12 @@
 
   <!--Spinner/DropDown Array-->
   <string-array name="category_array">
-    <item>Category</item>
     <item>Complain</item>
     <item>Rules</item>
     <item>Facility</item>
     <item>Hygiene</item>
   </string-array>
   <string-array name="urgency_array">
-    <item>Urgency</item>
     <item>High</item>
     <item>Medium</item>
     <item>Low</item>

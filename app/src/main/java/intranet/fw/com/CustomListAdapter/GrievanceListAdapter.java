@@ -1,29 +1,28 @@
 package intranet.fw.com.CustomListAdapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import intranet.fw.com.R;
 
 /**
  * Created by kaustubh on 22/9/14.
  */
-public class GrievanceListAdapter  extends ArrayAdapter<String> {
+public class GrievanceListAdapter  extends BaseAdapter {
 
-  private final Activity activity;
+  private final Context context;
   private final String [] category,status,title,body,urgency,time,comment_count;
 
-  public GrievanceListAdapter(Activity activity,String [] category,String [] status,String [] title, String [] body, String [] urgency, String [] time,String [] comment_count){
-    super(activity, R.layout.grievance_custom_listview,title);
-    this.activity = activity;
+  public GrievanceListAdapter(Context context,String [] category,String [] status,String [] title, String [] body, String [] urgency, String [] time,String [] comment_count){
+    super();
+    this.context = context;
     this.category = category;
     this.status = status;
     this.title = title;
@@ -34,9 +33,25 @@ public class GrievanceListAdapter  extends ArrayAdapter<String> {
   }
 
   @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
-    LayoutInflater inflater = activity.getLayoutInflater();
+  public int getCount() {
+    return category.length;
+  }
+
+  @Override
+  public Object getItem(int i) {
+    return null;
+  }
+
+  @Override
+  public long getItemId(int position) {
+    return position;
+  }
+
+  @Override
+  public View getView(final int position, View convertView, ViewGroup parent) {
+    LayoutInflater inflater = LayoutInflater.from(context);
     View rowView =inflater.inflate(R.layout.grievance_custom_listview,null,true);
+    rowView.setFocusable(false);
     String urgencyText="";
 
     if(urgency[position].equals("1")){
@@ -62,6 +77,13 @@ public class GrievanceListAdapter  extends ArrayAdapter<String> {
     txtBody.setText(Html.fromHtml(body[position]));
     txtTime.setText(time[position]);
     btnComment.setText(comment_count[position]);
+
+    rowView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Toast.makeText(context,""+position,Toast.LENGTH_LONG).show();
+      }
+    });
     return rowView;
   }
 }

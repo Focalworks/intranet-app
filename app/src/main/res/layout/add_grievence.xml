@@ -1,113 +1,235 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:scrollbars="vertical">
 
-    <TextView
-        android:id="@+id/txt_grievance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_grievance"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="25dp"
-        android:textSize="25sp"/>
+  <TextView
+      android:id="@+id/addGrievanceTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@+id/scrollView1"
+      android:layout_alignRight="@+id/scrollView1"
+      android:paddingBottom="15dp"
+      android:text="Add Grievance"
+      android:textSize="18dp" />
 
-    <EditText
-        android:id="@+id/et_title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_grievance"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:hint="@string/grievance_title"/>
-
-    <Spinner
-        android:id="@+id/sp_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_title"
-        android:layout_alignLeft="@+id/et_body"
-        android:layout_alignRight="@+id/et_body"
-        android:gravity="left"
-        android:entries="@array/category_array"/>
-
-    <Spinner
-        android:id="@+id/sp_urgency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sp_category"
-        android:layout_alignLeft="@+id/sp_category"
-        android:layout_alignRight="@+id/sp_category"
-        android:gravity="left"
-        android:entries="@array/urgency_array"/>
-
-    <EditText
-        android:id="@+id/et_body"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sp_urgency"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:lines="3"
-        android:gravity="top|left"
-        android:inputType="textMultiLine"
-        android:hint="@string/grievance_body"/>
+  <ScrollView
+      android:id="@+id/scrollView1"
+      android:layout_width="316dp"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentRight="true"
+      android:layout_below="@+id/addGrievanceTitle"
+      android:scrollbars="vertical"
+      android:layout_gravity="top">
 
     <RelativeLayout
-        android:id="@+id/upload_layout"
-        android:layout_width="wrap_content"
+        android:id="@+id/frameLayout1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_body"
-        android:layout_alignLeft="@+id/et_body"
-        android:layout_alignRight="@+id/et_body">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/LinearLayout01"
+        android:background="#ffffff"
+        android:scrollbars="vertical"
+        android:gravity="fill|top">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Title:"
+          android:id="@+id/titleLabel"
+          android:textSize="18dp"
+          android:padding="10dp"
+          android:textColor="#676767"
+          android:layout_above="@+id/sp_urgency"
+          android:layout_toLeftOf="@+id/sp_urgency"
+          android:layout_toStartOf="@+id/sp_urgency"
+          android:layout_alignParentLeft="true" />
+          android:layout_alignParentStart="true" />
+
+      <EditText
+          android:id="@+id/enterGrievanceTitle"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+
+          android:hint="Enter Grievance title"
+          android:padding="10dp"
+          android:paddingBottom="5dp"
+          android:typeface="normal"
+          android:textColor="#808080"
+          android:layout_alignParentTop="true"
+          android:layout_alignLeft="@+id/sp_urgency"
+          android:layout_alignStart="@+id/sp_urgency"
+          android:layout_marginRight="10dp">
+      </EditText>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Category:"
+          android:id="@+id/categoryLabel"
+          android:layout_below="@+id/enterGrievanceTitle"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentStart="true"
+          android:textSize="18dp"
+          android:padding="10dp"
+          android:textColor="#676767" />
+
+      <Spinner
+          android:id="@+id/sp_category"
+          style="@style/AppTheme"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:entries="@array/category_array"
+          android:spinnerMode="dropdown"
+          android:layout_toRightOf="@+id/urgencyLabel"
+          android:layout_toEndOf="@+id/urgencyLabel"
+          android:paddingTop="10dp"
+          android:paddingBottom="10dp"
+          android:layout_below="@+id/enterGrievanceTitle"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentEnd="true"
+          android:layout_marginRight="10dp" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Urgency:"
+          android:id="@+id/urgencyLabel"
+          android:textSize="18dp"
+          android:padding="10dp"
+          android:textColor="#676767"
+          android:layout_toLeftOf="@+id/enterGrievanceTitle"
+          android:layout_toStartOf="@+id/enterGrievanceTitle"
+          android:layout_alignTop="@+id/sp_urgency"
+          android:layout_alignParentLeft="true" />
+          android:layout_alignParentStart="true" />
+
+      <Spinner
+          android:id="@+id/sp_urgency"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignTop="@+id/sp_category"
+          android:layout_marginTop="42dp"
+          android:entries="@array/urgency_array"
+          android:spinnerMode="dropdown"
+          android:layout_toRightOf="@+id/categoryLabel"
+          android:layout_toEndOf="@+id/categoryLabel"
+          android:layout_marginLeft="15dp"
+          android:paddingTop="10dp"
+          android:paddingBottom="10dp"
+          android:layout_marginRight="10dp" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Grievance:"
+          android:id="@+id/grievanceLabel"
+          android:textSize="18dp"
+          android:padding="10dp"
+          android:textColor="#676767"
+          android:layout_toLeftOf="@+id/enterGrievanceTitle"
+          android:layout_toStartOf="@+id/enterGrievanceTitle"
+          android:layout_below="@+id/sp_urgency"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentStart="true" />
+
+      <EditText
+          android:id="@+id/etGrievanceBody"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:ems="10"
+          android:inputType="textMultiLine"
+          android:maxLines="3"
+          android:padding="10dp"
+          android:typeface="normal"
+          android:hint="Grievance"
+          android:layout_below="@+id/sp_urgency"
+          android:layout_alignRight="@+id/enterGrievanceTitle"
+          android:layout_alignEnd="@+id/enterGrievanceTitle"
+          android:layout_toRightOf="@+id/categoryLabel"
+          android:layout_toEndOf="@+id/categoryLabel"
+          android:layout_alignLeft="@+id/enterGrievanceTitle"
+          android:layout_alignStart="@+id/enterGrievanceTitle">
+
+        <requestFocus />
+      </EditText>
 
       <Button
           android:id="@+id/btn_upload_img"
-          android:layout_width="fill_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="10dp"
-          android:paddingTop="30dp"
-          android:paddingBottom="30dp"
-          android:text="@string/btn_upload_img"
-          android:textSize="17sp"/>
-
-      <ImageView
-          android:id="@+id/uploaded_photo"
+          android:drawableRight="@drawable/camera"
+          android:drawablePadding="10dp"
+          android:text="Upload Image"
+          android:textAlignment="center"
+          android:textAllCaps="true"
+          android:textColor="#ffffff"
+          android:paddingLeft="15dp"
+          android:paddingRight="15dp"
+          android:background="@drawable/custom_btn_back"
+          android:layout_gravity="right"
+          android:layout_below="@+id/etGrievanceBody"
+          android:layout_alignRight="@+id/etGrievanceBody"
+          android:layout_alignEnd="@+id/etGrievanceBody"
           android:layout_marginTop="10dp"
+          android:textSize="15sp"
+          android:minHeight="36dp" />
+
+
+      <RelativeLayout
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:visibility="gone"/>
+          android:layout_height="wrap_content"
+          android:layout_gravity="bottom"
+          android:layout_toRightOf="@+id/urgencyLabel"
+          android:layout_toEndOf="@+id/urgencyLabel"
+          android:padding="10dp"
+          android:background="#ffffff"
+          android:id="@+id/relativeLayout"
+          android:layout_below="@+id/btn_upload_img"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgUploaded_photo"
+            android:src="@drawable/dummy"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="top"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgReload"
+            android:background="@drawable/camera"
+            android:layout_alignTop="@+id/imgUploaded_photo"
+            android:layout_alignLeft="@+id/imgUploaded_photo"
+            android:layout_alignStart="@+id/imgUploaded_photo"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
+      </RelativeLayout>
+
+      <Button
+          android:id="@+id/btn_save"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/btn_upload_img"
+          android:layout_alignParentRight="true"
+          android:text="Save"/>
 
     </RelativeLayout>
+  </ScrollView>
 
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/upload_layout"
-        android:layout_alignLeft="@+id/upload_layout"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/btn_save"
-        android:textSize="17sp"/>
-
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/upload_layout"
-        android:layout_toRightOf="@+id/btn_save"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/btn_back"
-        android:textSize="17sp"/>
-
-  </RelativeLayout>
-</ScrollView>
+</RelativeLayout>
