@@ -5,14 +5,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 import intranet.fw.com.CustomListAdapter.GrievanceListAdapter;
+import intranet.fw.com.Database.Grievance;
 import intranet.fw.com.R;
 import intranet.fw.com.utils.CommonFunctions;
 import intranet.fw.com.utils.Constants;
@@ -23,7 +23,7 @@ import intranet.fw.com.utils.Constants;
 public class ListGrievanceActivity extends Activity{
 
   ListView list;
-  String [] category,status,title,body,urgency,time,comment_count;
+  GrievanceListAdapter grievanceAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -31,50 +31,59 @@ public class ListGrievanceActivity extends Activity{
     setContentView(R.layout.list_grievance);
 
     list =(ListView)findViewById(R.id.grievanceList);
+    grievanceAdapter = new GrievanceListAdapter(this,new ArrayList<Grievance>());
+    list.setAdapter(grievanceAdapter);
+
 
     new GrievanceDataPostCall().execute();
 
   }
 
-  private class GrievanceDataPostCall extends AsyncTask<Uri, Void, Void> {
-
+  private class GrievanceDataPostCall extends AsyncTask<Uri, Void, List<Grievance>> {
+    List<Grievance> result = new ArrayList<Grievance>();
     String apiResponse = null;
 
     @Override
-    protected Void doInBackground(Uri...params) {
+    protected List<Grievance> doInBackground(Uri...params) {
 
       apiResponse = CommonFunctions.httpGet(Constants.urlListGrievance);
-      return null;
+      Log.i("Response api",""+apiResponse);
+      try {
+        JSONArray jsonArray = new JSONArray(apiResponse);
+        for(int i=0;i<jsonArray.length();i++){
+          result.add(convertContact(jsonArray.getJSONObject(i)));
+        }
+      }catch (JSONException e){
+        Log.e("Response Error",""+e);
+      }
+      return result;
     }
 
     @Override
-    protected void onPostExecute(Void result) {
-      try {
-        Log.i("api response",""+apiResponse);
-        JSONArray jsonArray = new JSONArray(apiResponse);
-        category = new String[jsonArray.length()];
-        status = new String[jsonArray.length()];
-        title = new String[jsonArray.length()];
-        urgency = new String[jsonArray.length()];
-        body = new String[jsonArray.length()];
-        time = new String[jsonArray.length()];
-        comment_count = new String[jsonArray.length()];
-        for(int i=0;i<jsonArray.length();i++){
-          JSONObject objResponse = jsonArray.getJSONObject(i);
-          category[i]= objResponse.get("category").toString();
-          status[i]= objResponse.get("status").toString();
-          title[i]= objResponse.get("title").toString();
-          urgency[i]= objResponse.get("urgency").toString();
-          body[i]= objResponse.get("description").toString();
-          time[i]= objResponse.get("time_ago").toString();
-          comment_count[i] = objResponse.get("comment_count").toString();
-        }
-        GrievanceListAdapter grievanceAdapter = new GrievanceListAdapter(ListGrievanceActivity.this,category,status,title,body,urgency,time,comment_count);
-        list.setAdapter(grievanceAdapter);
-
-      }catch (JSONException e){
-        Log.e("JSON exception",""+e);
-      }
+    protected void onPostExecute(List<Grievance> grievanceListData) {
+      grievanceAdapter.setItemList(grievanceListData);
+      grievanceAdapter.notifyDataSetChanged();
     }
+  }
+
+  private Grievance convertContact(JSONObject obj) throws JSONException {
+    String id = obj.getString("id");
+    String title = obj.getString("title");
+    String description = obj.getString("description");
+    String category = obj.getString("category");
+    String urgency = obj.getString("urgency");
+    String user_id = obj.getString("user_id");
+    String status = obj.getString("status");
+    String url = obj.getString("url");
+    String fileMime = obj.getString("filemime");
+    String time_ago = obj.getString("time_ago");
+    String comment_count = obj.getString("comment_count");
+    String comments = "";
+    if(obj.has("comments")){
+      comments = obj.getString("comments");
+    }
+
+
+    return new Grievance(id, title, description, category, urgency, user_id, status, url, fileMime, time_ago, comment_count, comments);
   }
 }

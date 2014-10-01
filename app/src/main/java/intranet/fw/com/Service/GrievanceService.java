@@ -57,7 +57,7 @@ public class GrievanceService extends Service {
           if (gr.getTitle() != null){
             JSONObject jsonGrievanceObject = new JSONObject();
             jsonGrievanceObject.put("title", gr.getTitle());
-            jsonGrievanceObject.put("body", gr.getBody());
+            jsonGrievanceObject.put("body", gr.getDescription());
             jsonGrievanceObject.put("category", gr.getCategory());
             jsonGrievanceObject.put("urgency", gr.getUrgency());
             jsonGrievanceObject.put("image", CommonFunctions.getBase64Format(gr.getImg_path()));

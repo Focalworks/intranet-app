@@ -91,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     ContentValues values = new ContentValues();
     values.put(KEY_title,grievance.getTitle());
-    values.put(KEY_body,grievance.getBody());
+    values.put(KEY_body,grievance.getDescription());
     values.put(KEY_category,grievance.getCategory());
     values.put(KEY_urgency,grievance.getUrgency());
     values.put(KEY_picture,grievance.getImg_path());
@@ -137,7 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
       try {
         while (c.moveToNext()) {
           grievance.setTitle(c.getString(c.getColumnIndex(KEY_title)));
-          grievance.setBody(c.getString(c.getColumnIndex(KEY_body)));
+          grievance.setDescription(c.getString(c.getColumnIndex(KEY_body)));
           grievance.setCategory(c.getString(c.getColumnIndex(KEY_category)));
           grievance.setUrgency(c.getString(c.getColumnIndex(KEY_urgency)));
           grievance.setImg_path(c.getString(c.getColumnIndex(KEY_picture)));

@@ -6,21 +6,44 @@ package intranet.fw.com.Database;
 public class Grievance {
 
   String title;
-  String body;
+  String description;
   String category;
   String urgency;
   String img_path;
   String img_size;
 
+  String id;
+  String user_id;
+  String status;
+  String fileMime;
+  String time_ago;
+  String comment_count;
+  String comments;
+
   public Grievance(){}
 
-  public Grievance(String title, String body, String category, String urgency, String img_path, String img_size){
+  public Grievance(String title, String description, String category, String urgency, String img_path, String img_size){
     this.title = title;
-    this.body = body;
+    this.description = description;
     this.category = category;
     this.urgency = urgency;
     this.img_path = img_path;
     this.img_size = img_size;
+  }
+
+  public Grievance(String id,String title,String description,String category,String urgency,String user_id,String status,String img_path,String fileMime,String time_ago,String comment_count,String comments){
+    this.id = id;
+    this.title = title;
+    this.description = description;
+    this.category = category;
+    this.urgency = urgency;
+    this.user_id = user_id;
+    this.status = status;
+    this.img_path = img_path;
+    this.fileMime = fileMime;
+    this. time_ago = time_ago;
+    this.comment_count = comment_count;
+    this.comments = comments;
   }
 
   public String getTitle() {
@@ -31,12 +54,12 @@ public class Grievance {
     this.title = title;
   }
 
-  public String getBody() {
-    return body;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
-  public void setBody(String body) {
-    this.body = body;
+  public String getDescription() {
+    return description;
   }
 
   public String getCategory() {
@@ -69,5 +92,61 @@ public class Grievance {
 
   public void setImg_size(String img_size) {
     this.img_size = img_size;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getUser_id() {
+    return user_id;
+  }
+
+  public void setUser_id(String user_id) {
+    this.user_id = user_id;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public String getFileMime() {
+    return fileMime;
+  }
+
+  public void setFileMime(String fileMime) {
+    this.fileMime = fileMime;
+  }
+
+  public String getTime_ago() {
+    return time_ago;
+  }
+
+  public void setTime_ago(String time_ago) {
+    this.time_ago = time_ago;
+  }
+
+  public String getComment_count() {
+    return comment_count;
+  }
+
+  public void setComment_count(String comment_count) {
+    this.comment_count = comment_count;
+  }
+
+  public String getComments() {
+    return comments;
+  }
+
+  public void setComments(String comments) {
+    this.comments = comments;
   }
 }

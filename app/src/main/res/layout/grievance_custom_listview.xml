@@ -5,7 +5,7 @@
                 android:layout_margin="10dp">
 
   <TextView
-      android:id="@+id/txtCategory"
+      android:id="@+id/txtlblCategory"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="10dp"
@@ -16,13 +16,35 @@
       android:textStyle="bold"/>
 
   <TextView
-      android:id="@+id/txtStatus"
+      android:id="@+id/txtCategory"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/txtlblCategory"
+      android:layout_alignBottom="@+id/txtlblCategory"
+      android:layout_marginLeft="5dp"
+      android:layout_marginRight="5dp"
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+
+  <TextView
+      android:id="@+id/txtlblStatus"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_toRightOf="@+id/txtCategory"
       android:layout_alignBottom="@+id/txtCategory"
-      android:paddingLeft="20dp"
+      android:paddingLeft="15dp"
       android:text="@string/listview_status"
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+
+  <TextView
+      android:id="@+id/txtStatus"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/txtlblStatus"
+      android:layout_alignBottom="@+id/txtlblStatus"
+      android:layout_marginLeft="5dp"
+      android:layout_marginRight="5dp"
       android:textSize="17sp"
       android:textStyle="bold"/>
 
@@ -47,8 +69,8 @@
       android:id="@+id/txtTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignLeft="@+id/txtCategory"
-      android:layout_below="@+id/txtCategory"
+      android:layout_alignLeft="@+id/txtlblCategory"
+      android:layout_below="@+id/txtlblCategory"
       android:paddingTop="15dp"
       android:text="Title"
       android:textSize="17sp"/>
@@ -58,7 +80,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingTop="5dp"
-      android:layout_alignLeft="@+id/txtCategory"
+      android:layout_alignLeft="@+id/txtlblCategory"
       android:layout_below="@+id/txtTitle"
       android:text="Body"
       android:textSize="17sp"/>
@@ -67,7 +89,7 @@
       android:id="@+id/txtTime"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignLeft="@+id/txtCategory"
+      android:layout_alignLeft="@+id/txtlblCategory"
       android:layout_below="@+id/txtBody"
       android:paddingTop="5dp"
       android:text="time"
