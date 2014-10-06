@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+  <TextView
+      android:id="@+id/txtlblGriv"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Grievance Details"
+      android:textSize="30sp"
+      android:textStyle="bold"
+      android:layout_marginTop="15dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginBottom="15dp"/>
+
+  <TextView
+      android:id="@+id/txtlblCategory"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@+id/txtlblGriv"
+      android:layout_alignStart="@+id/txtlblGriv"
+      android:layout_below="@+id/txtlblGriv"
+      android:text="@string/listview_category"
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+
+  <TextView
+      android:id="@+id/txtCategory"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/txtlblCategory"
+      android:layout_below="@+id/txtlblGriv"
+      android:layout_marginLeft="5dp"
+      android:text=""
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+
+  <TextView
+      android:id="@+id/txtlblStatus"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/txtCategory"
+      android:layout_below="@+id/txtlblGriv"
+      android:layout_marginLeft="15dp"
+      android:text="@string/listview_status"
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+
+  <TextView
+      android:id="@+id/txtStatus"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/txtlblStatus"
+      android:layout_below="@+id/txtlblGriv"
+      android:layout_marginLeft="5dp"
+      android:text=""
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+
+  <ImageView
+      android:id="@+id/imgUploaded_photo"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_launcher"
+      android:layout_below="@+id/txtlblCategory"
+      android:layout_margin="15dp"/>
+
+  <TextView
+      android:id="@+id/txtTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/imgUploaded_photo"
+      android:layout_alignLeft="@+id/txtlblCategory"
+      android:layout_alignStart="@+id/txtlblCategory"
+      android:text="Title"
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+
+  <TextView
+      android:id="@+id/txtBody"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/txtTitle"
+      android:layout_alignLeft="@+id/txtlblCategory"
+      android:layout_alignStart="@+id/txtlblCategory"
+      android:text="Body"
+      android:layout_marginTop="5dp"
+      android:textSize="17sp"
+      android:textStyle="bold"/>
+</RelativeLayout>

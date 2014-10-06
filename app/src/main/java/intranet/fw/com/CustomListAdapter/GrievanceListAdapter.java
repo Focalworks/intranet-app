@@ -1,12 +1,13 @@
 package intranet.fw.com.CustomListAdapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import intranet.fw.com.Database.Grievance;
 import intranet.fw.com.R;
+import intranet.fw.com.intranet.GrievanceFullViewActivity;
 
 /**
  * Created by kaustubh on 22/9/14.
@@ -60,27 +62,8 @@ public class GrievanceListAdapter  extends ArrayAdapter<Grievance> {
       LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       rowView = inflater.inflate(R.layout.grievance_custom_listview, null);
     }
-    String urgencyText="";
-    String statusText="";
 
     Grievance grievance = grievanceList.get(position);
-    if(grievance.getUrgency().equals("1")){
-      urgencyText = "Low";
-    }else if(grievance.getUrgency().equals("2")){
-      urgencyText = "Medium";
-    }else{
-      urgencyText = "High";
-    }
-
-    if(grievance.getStatus().equals("1")){
-      statusText = "Submitted";
-    }else if(grievance.getStatus().equals("2")){
-      statusText = "In Progress";
-    }else if(grievance.getStatus().equals("3")){
-      statusText = "Closed";
-    }else{
-      statusText = "Re Opened";
-    }
 
     TextView txtCategory = (TextView)rowView.findViewById(R.id.txtCategory);
     TextView txtStatus= (TextView)rowView.findViewById(R.id.txtStatus);
@@ -90,9 +73,9 @@ public class GrievanceListAdapter  extends ArrayAdapter<Grievance> {
     TextView txtTime = (TextView)rowView.findViewById(R.id.txtTime);
     Button btnComment = (Button)rowView.findViewById(R.id.btnComment);
 
-    txtCategory.setText(Character.toUpperCase(grievance.getCategory().charAt(0)) + grievance.getCategory().substring(1));
-    txtStatus.setText(statusText);
-    txtUrgency.setText(urgencyText);
+    txtCategory.setText(grievance.getCategory());
+    txtStatus.setText(grievance.getStatus());
+    txtUrgency.setText(grievance.getUrgency());
     txtTitle.setText(grievance.getTitle());
     txtBody.setText(Html.fromHtml(grievance.getDescription()));
     txtTime.setText(grievance.getTime_ago());
@@ -101,7 +84,14 @@ public class GrievanceListAdapter  extends ArrayAdapter<Grievance> {
     rowView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Toast.makeText(context,""+position,Toast.LENGTH_LONG).show();
+        Grievance grievance = grievanceList.get(position);
+
+        Bundle mBundle = new Bundle();
+        mBundle.putParcelable("grievance", grievance);
+
+        Intent intent = new Intent(context, GrievanceFullViewActivity.class);
+        intent.putExtras(mBundle);
+        context.startActivity(intent);
       }
     });
     return rowView;

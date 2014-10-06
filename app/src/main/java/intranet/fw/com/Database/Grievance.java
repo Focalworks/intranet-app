@@ -1,9 +1,12 @@
 package intranet.fw.com.Database;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by kaustubh on 24/9/14.
  */
-public class Grievance {
+public class Grievance implements Parcelable {
 
   String title;
   String description;
@@ -21,6 +24,55 @@ public class Grievance {
   String comments;
 
   public Grievance(){}
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel parcel, int i) {
+    parcel.writeString(title);
+    parcel.writeString(description);
+    parcel.writeString(category);
+    parcel.writeString(urgency);
+    parcel.writeString(img_path);
+    parcel.writeString(img_size);
+    parcel.writeString(id);
+    parcel.writeString(user_id);
+    parcel.writeString(status);
+    parcel.writeString(fileMime);
+    parcel.writeString(time_ago);
+    parcel.writeString(comment_count);
+    parcel.writeString(comments);
+  }
+
+  public static final Parcelable.Creator<Grievance> CREATOR = new Creator<Grievance>() {
+
+    @Override
+    public Grievance createFromParcel(Parcel parcel) {
+      Grievance grievance = new Grievance();
+      grievance.title = parcel.readString();
+      grievance.description = parcel.readString();
+      grievance.category = parcel.readString();
+      grievance.urgency = parcel.readString();
+      grievance.img_path = parcel.readString();
+      grievance.img_size = parcel.readString();
+      grievance.id = parcel.readString();
+      grievance.user_id = parcel.readString();
+      grievance.status = parcel.readString();
+      grievance.fileMime = parcel.readString();
+      grievance.time_ago = parcel.readString();
+      grievance.comment_count = parcel.readString();
+      grievance.comments = parcel.readString();
+      return grievance;
+    }
+
+    @Override
+    public Grievance[] newArray(int i) {
+      return new Grievance[0];
+    }
+  };
 
   public Grievance(String title, String description, String category, String urgency, String img_path, String img_size){
     this.title = title;

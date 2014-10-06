@@ -51,7 +51,7 @@ public class ListGrievanceActivity extends Activity{
       try {
         JSONArray jsonArray = new JSONArray(apiResponse);
         for(int i=0;i<jsonArray.length();i++){
-          result.add(convertContact(jsonArray.getJSONObject(i)));
+          result.add(convertData(jsonArray.getJSONObject(i)));
         }
       }catch (JSONException e){
         Log.e("Response Error",""+e);
@@ -66,14 +66,32 @@ public class ListGrievanceActivity extends Activity{
     }
   }
 
-  private Grievance convertContact(JSONObject obj) throws JSONException {
+  private Grievance convertData(JSONObject obj) throws JSONException {
+    String urgency ="";
+    String status = "";
+    if(obj.getString("urgency").equals("1")){
+      urgency = "Low";
+    }else if(obj.getString("urgency").equals("2")){
+      urgency = "Medium";
+    }else{
+      urgency = "High";
+    }
+
+    if(obj.getString("status").equals("1")){
+      status = "Submitted";
+    }else if(obj.getString("status").equals("2")){
+      status = "In Progress";
+    }else if(obj.getString("status").equals("3")){
+      status = "Closed";
+    }else{
+      status = "Re Opened";
+    }
+
     String id = obj.getString("id");
     String title = obj.getString("title");
     String description = obj.getString("description");
-    String category = obj.getString("category");
-    String urgency = obj.getString("urgency");
+    String category = Character.toUpperCase(obj.getString("category").charAt(0)) + obj.getString("category").substring(1);
     String user_id = obj.getString("user_id");
-    String status = obj.getString("status");
     String url = obj.getString("url");
     String fileMime = obj.getString("filemime");
     String time_ago = obj.getString("time_ago");
@@ -82,7 +100,6 @@ public class ListGrievanceActivity extends Activity{
     if(obj.has("comments")){
       comments = obj.getString("comments");
     }
-
 
     return new Grievance(id, title, description, category, urgency, user_id, status, url, fileMime, time_ago, comment_count, comments);
   }
